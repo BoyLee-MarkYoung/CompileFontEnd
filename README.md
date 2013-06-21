@@ -1,6 +1,5 @@
 CompileFontEnd
 ==============
-Linux Course Project
 
 ## Contributors
 - [Youg Mark](https://github.com/Yougmark)
