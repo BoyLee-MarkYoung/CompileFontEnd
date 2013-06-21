@@ -88,6 +88,7 @@ Stmt Parser::stmt()
             return Else(x, s1, s2);
             
         case Tag::WHILE:
+        {
             While whilenode = While();
             savedStmt = Stmt::Enclosing; Stmt::Enclosing = whilenode;
             match(Tag::WHILE); match('('); x = booll(); match(')');
@@ -95,8 +96,10 @@ Stmt Parser::stmt()
             whilenode.init(x, s1);
             Stmt::Enclosing = savedStmt;  // reset Stmt.Enclosing
             return whilenode;
+        }
             
         case Tag::DO:
+        {
             Do donode = Do();
             savedStmt = Stmt::Enclosing; Stmt::Enclosing = donode;
             match(Tag::DO);
@@ -105,10 +108,13 @@ Stmt Parser::stmt()
             donode.init(s1, x);
             Stmt::Enclosing = savedStmt;  // reset Stmt.Enclosing
             return donode;
+        }
             
         case Tag::BREAK:
+        {
             match(Tag::BREAK); match(';');
             return Break();
+        }
             
         case '{':
             return block();
@@ -174,9 +180,11 @@ Expr Parser::rel() {
     Expr x = expr();
     switch( look.tag ) {
         case '<': case Tag::LE: case Tag::GE: case '>':
+        {
             Token tok = look;
             move();
             return Rel(tok, x, expr());
+        }
         default:
             return x;
     }
