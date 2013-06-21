@@ -10,5 +10,16 @@
 #define __CompileFrontEnd__Num__
 
 #include <iostream>
+#include "Token.h"
 
+class Num :public Token {
+    
+    
+public:
+    const int value;
+    Num(int v)
+    :Token(Tag::NUM), value(v)
+    {}
+    string toString();
+};
 #endif /* defined(__CompileFrontEnd__Num__) */

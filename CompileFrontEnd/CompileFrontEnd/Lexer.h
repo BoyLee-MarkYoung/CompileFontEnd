@@ -10,5 +10,28 @@
 #define __CompileFrontEnd__Lexer__
 
 #include <iostream>
+#include "Word.h"
+#include "Type.h"
+#include <map>
+#include "Num.h"
+#include "Real.h"
 
+using namespace std;
+
+
+class Lexer {
+public:
+    static int line;
+    char peek = ' ';
+    map<string, Word> words;
+    void reserve(Word w) { words.insert(make_pair(w.lexeme, w)); }
+    
+    Lexer();
+    void readch() { peek = getchar(); }
+    bool readch(char c);
+    Token scan();
+    
+    Lexer& operator=(const Lexer& rhs);
+
+};
 #endif /* defined(__CompileFrontEnd__Lexer__) */

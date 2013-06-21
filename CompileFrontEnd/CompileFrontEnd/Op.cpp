@@ -7,3 +7,12 @@
 //
 
 #include "Op.h"
+
+
+Expr Op::reduce()
+{
+    Expr x = gen();
+    Temp t = Temp(type);
+    emit( t.toString() + " = " + x.toString() );
+    return t;
+}

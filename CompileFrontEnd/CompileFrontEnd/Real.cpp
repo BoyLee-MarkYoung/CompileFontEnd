@@ -7,3 +7,11 @@
 //
 
 #include "Real.h"
+#include <sstream>
+
+string Real::toString()
+{
+    std::ostringstream str;
+    str << value;
+    return str.str();
+}

@@ -7,3 +7,6 @@
 //
 
 #include "Stmt.h"
+
+Stmt Stmt::Null = Stmt();
+Stmt Stmt::Enclosing = Stmt::Null;

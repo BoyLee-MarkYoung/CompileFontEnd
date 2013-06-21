@@ -7,11 +7,17 @@
 //
 
 #include <iostream>
+#include "Lexer.h"
+#include "Parser.h"
+
+using namespace std;
 
 int main(int argc, const char * argv[])
 {
 
-    // insert code here...
+    Lexer lex = Lexer();
+    Parser parse = Parser(lex);
+    parse.program();
     std::cout << "Hello, World!\n";
     return 0;
 }

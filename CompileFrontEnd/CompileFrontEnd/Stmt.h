@@ -11,4 +11,21 @@
 
 #include <iostream>
 
+#include "Node.h"
+
+using namespace std;
+
+class Stmt : public Node
+{
+public:
+    Stmt() { }
+    
+    static Stmt Null;
+    
+    void gen(int b, int a) {} // called with labels begin and after
+    
+    int after = 0;                   // saves label after
+    static Stmt Enclosing;  // used for break stmts
+
+};
 #endif /* defined(__CompileFrontEnd__Stmt__) */

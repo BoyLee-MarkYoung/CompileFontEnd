@@ -10,5 +10,26 @@
 #define __CompileFrontEnd__Temp__
 
 #include <iostream>
+#include "Expr.h"
+#include <sstream>
 
+using namespace std;
+class Temp :public Expr{
+public:
+    static int count;
+    int number = 0;
+    
+    Temp(Type p)
+    : Expr(Word::temp, p), number(++count)
+    {}
+    
+
+    string toString()
+    {
+        ostringstream str;
+        str << "t" << number;
+        return str.str();
+    }
+    
+};
 #endif /* defined(__CompileFrontEnd__Temp__) */

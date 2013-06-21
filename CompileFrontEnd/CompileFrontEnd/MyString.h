@@ -11,4 +11,17 @@
 
 #include <iostream>
 
+
+using namespace std;
+
+class MyString {
+
+    
+public:
+    static string create(char *c)
+    {
+        string str(c);
+        return str;
+    }
+};
 #endif /* defined(__CompileFrontEnd__MyString__) */

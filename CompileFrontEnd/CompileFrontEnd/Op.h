@@ -10,5 +10,21 @@
 #define __CompileFrontEnd__Op__
 
 #include <iostream>
+#include "Token.h"
+#include "Type.h"
+#include "Expr.h"
+#include "Temp.h"
 
+using namespace std;
+
+class Op : public Expr {
+public:
+    Op(Token tok, Type p)
+    :Expr(tok, p)
+    {}
+    
+    Op(){}
+    
+    Expr reduce();
+};
 #endif /* defined(__CompileFrontEnd__Op__) */

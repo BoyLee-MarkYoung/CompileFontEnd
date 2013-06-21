@@ -7,3 +7,11 @@
 //
 
 #include "Num.h"
+#include <sstream>
+
+string Num::toString()
+{
+    std::ostringstream str;
+    str << value;
+    return str.str();
+}

@@ -7,3 +7,11 @@
 //
 
 #include "Constant.h"
+const Constant
+True  = Constant(Word::True,  Type::Bool),
+False = Constant(Word::False, Type::Bool);
+
+bool Constant::operator==(const Constant &rhs)
+{
+    return (this->type == rhs.type) && (this->op == rhs.op) && (this->lexline == rhs.lexline);
+}

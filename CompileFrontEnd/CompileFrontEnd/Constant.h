@@ -10,5 +10,41 @@
 #define __CompileFrontEnd__Constant__
 
 #include <iostream>
+#include "Expr.h"
+#include "Num.h"
+#include "Type.h"
+#include "Word.h"
+#include <sstream>
+#include "Token.h"  
 
+class Constant :public Expr {
+    
+    
+public:
+    Constant(Token tok, Type p)
+    :Expr(tok, p)
+    {}
+    
+    Constant(int i)
+    :Expr(Num(i), Type::Int)
+    {}
+    
+    static const Constant
+    True, False;
+    
+    void jumping(int t, int f) {
+        ostringstream str;
+        str << "goto L" << t;
+        if ( *this == Constant::True && t != 0 ) emit(str.str());
+        else if ( *this == Constant::False && f != 0)
+        {
+            str = ostringstream();
+            str << "goto L" << f;
+            emit(str.str());
+        }
+    }
+    
+    bool operator==(const Constant &rhs);
+
+};
 #endif /* defined(__CompileFrontEnd__Constant__) */
