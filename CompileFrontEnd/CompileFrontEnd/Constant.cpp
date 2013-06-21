@@ -8,8 +8,10 @@
 
 #include "Constant.h"
 const Constant
-True  = Constant(Word::True,  Type::Bool),
-False = Constant(Word::False, Type::Bool);
+Constant::True  = Constant(Word::True,  Type::Bool),
+Constant::False = Constant(Word::False, Type::Bool);
+
+
 
 bool Constant::operator==(const Constant &rhs)
 {

@@ -36,3 +36,5 @@ bool Node::operator==(const Node& rhs)
 {
     return this->lexline == rhs.lexline;
 }
+
+int Node::labels = 0;

@@ -18,7 +18,7 @@ using namespace std;
 
 class Type :public Word {
 public:
-    int width = 0;          // width is used for storage allocation
+    int width;          // width is used for storage allocation
     
     Type(string s, int tag, int w)
         :Word(s, tag), width(w)

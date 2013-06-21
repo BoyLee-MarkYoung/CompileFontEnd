@@ -17,11 +17,13 @@ using namespace std;
 class Temp :public Expr{
 public:
     static int count;
-    int number = 0;
+    int number;
     
     Temp(Type p)
     : Expr(Word::temp, p), number(++count)
-    {}
+    {
+        number = 0;
+    }
     
 
     string toString()

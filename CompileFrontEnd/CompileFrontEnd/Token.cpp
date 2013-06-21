@@ -8,6 +8,8 @@
 
 #include "Token.h"
 
+Token const Token::Null;
+
 string Token::toString() {
     char temp[64];
     sprintf(temp, "%d",tag);

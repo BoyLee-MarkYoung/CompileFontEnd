@@ -22,7 +22,7 @@ using namespace std;
 class Lexer {
 public:
     static int line;
-    char peek = ' ';
+    char peek;
     map<string, Word> words;
     void reserve(Word w) { words.insert(make_pair(w.lexeme, w)); }
     

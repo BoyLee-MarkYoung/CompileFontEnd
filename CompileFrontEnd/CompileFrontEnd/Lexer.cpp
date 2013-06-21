@@ -9,7 +9,7 @@
 #include "Lexer.h"
 #include "Tag.h"
 
-
+int Lexer::line;
 
 Lexer& Lexer::operator=(const Lexer& rhs) {
     this->peek = rhs.peek;
@@ -30,6 +30,7 @@ Lexer::Lexer ()
     
     reserve( Type::Int  );  reserve( Type::Char  );
     reserve( Type::Bool );  reserve( Type::Float );
+    peek = ' ';
 }
 
 

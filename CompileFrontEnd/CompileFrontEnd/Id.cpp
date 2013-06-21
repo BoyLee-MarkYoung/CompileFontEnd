@@ -8,8 +8,7 @@
 
 #include "Id.h"
 
-
-//const Id Id::Null = Id(Word::Null, Type::Null, 0);
+const Id Id::Null = Id();
 
 bool Id::operator==(const Id &rhs)
 {

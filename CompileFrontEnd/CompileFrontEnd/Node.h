@@ -30,7 +30,7 @@ public:
     void emit(string s);
     
     Node() {
-        lexline = Lexer::line; labels = 0; lexline = 0;
+        lexline = Lexer::line; lexline = 0;
     }
     
     bool operator==(const Node& rhs);

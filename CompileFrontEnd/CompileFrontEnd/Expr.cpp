@@ -44,3 +44,6 @@ bool Expr::operator==(const Expr& rhs)
     (Node)(*this) == (Node)(rhs);
 }
 
+
+const Expr Expr::Null = Expr();
+

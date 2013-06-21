@@ -41,4 +41,4 @@ bool Env::operator!=(const Env &rhs)
     return !(*this==rhs);
 }
 
-//const Env Env::Null;
+const Env Env::Null;
