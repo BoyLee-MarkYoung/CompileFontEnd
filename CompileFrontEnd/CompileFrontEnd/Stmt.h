@@ -22,10 +22,10 @@ public:
     
     static Stmt Null;
     
-    void gen(int b, int a) {} // called with labels begin and after
+    virtual void gen(int b, int a) {} // called with labels begin and after
     
     int after = 0;                   // saves label after
-    static Stmt Enclosing;  // used for break stmts
+    static Stmt *Enclosing;  // used for break stmts
 
 };
 #endif /* defined(__CompileFrontEnd__Stmt__) */

@@ -19,12 +19,12 @@ using namespace std;
 
 class Op : public Expr {
 public:
-    Op(Token tok, Type p)
+    Op(Token *tok, Type *p)
     :Expr(tok, p)
     {}
     
     Op(){}
     
-    Expr reduce();
+    Expr *reduce();
 };
 #endif /* defined(__CompileFrontEnd__Op__) */

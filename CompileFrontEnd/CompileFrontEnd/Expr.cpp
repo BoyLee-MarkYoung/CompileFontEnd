@@ -39,11 +39,19 @@ Expr& Expr::operator=(const Expr &rhs) {
 
 bool Expr::operator==(const Expr& rhs)
 {
-    return this->op == rhs.op &&
+    if ( this->op == rhs.op &&
     this->type == rhs.type &&
-    (Node)(*this) == (Node)(rhs);
+    (Node)(*this) == (Node)(rhs))
+    {
+//        cout << "same Expr"  << endl;
+        return true;
+    }
+    else {
+//        cout << "diff Expr" << endl;
+        return false;
+    }
 }
 
 
-const Expr Expr::Null = Expr();
+Expr Expr::Null = Expr();
 

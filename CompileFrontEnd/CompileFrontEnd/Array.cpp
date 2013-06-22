@@ -14,6 +14,6 @@ string Array::toString()
     char * p_ch = new char[100];
     sprintf(p_ch, "[%d] ", size);
     
-    cout <<"Class Array Test:" << p_ch;
-    return p_ch + of.toString();
+//    cout <<"Class Array Test:" << p_ch;
+    return p_ch + of->toString();
 }

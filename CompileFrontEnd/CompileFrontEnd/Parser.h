@@ -45,39 +45,39 @@ using namespace std;
 class Parser {
 private:
     Lexer lex;    // lexical analyzer for this parser
-    Token look;   // lookahead tagen
+    Token *look;   // lookahead tagen
     
     
     
 public:
-    Env top;       // current or top symbol table
+    Env *top;       // current or top symbol table
     int used = 0;         // storage used for declarations
     Parser(Lexer l)
     {
+        top = new Env();
         lex = l;
         move();
-        top = Env::Null;
     }
     
     void move() { look = lex.scan(); }
-    void error(string s) { cerr << "near line " << Lexer::line << ": " <<s; }
+    void error(string s) { cout << "near line " << Lexer::line << ": " <<s; }
     void match(int t);
     void program();
-    Stmt block();
+    Stmt* block();
     void decls();
-    Type type();
-    Type dims(Type p);
-    Stmt stmts();
-    Stmt stmt();
-    Stmt assign();
-    Expr booll();
-    Expr join();
-    Expr equality();
-    Expr rel();
-    Expr expr();
-    Expr unary();
-    Expr term();
-    Expr factor();
-    Access offset(Id);
+    Type* type();
+    Type* dims(Type* p);
+    Stmt* stmts();
+    Stmt* stmt();
+    Stmt* assign();
+    Expr* booll();
+    Expr* join();
+    Expr* equality();
+    Expr* rel();
+    Expr* expr();
+    Expr* unary();
+    Expr* term();
+    Expr* factor();
+    Access* offset(Id);
 };
 #endif /* defined(__CompileFrontEnd__Parser__) */

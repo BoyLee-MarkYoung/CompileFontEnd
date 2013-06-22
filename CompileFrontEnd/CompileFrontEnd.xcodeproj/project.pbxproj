@@ -179,8 +179,6 @@
 			children = (
 				BB5613DE1770DBC500B49389 /* Lexer.cpp */,
 				BB5613DF1770DBC500B49389 /* Lexer.h */,
-				BB5613F617715C6D00B49389 /* Type.cpp */,
-				BB5613F717715C6E00B49389 /* Type.h */,
 				BB5613F917715CA500B49389 /* Word.cpp */,
 				BB5613FA17715CA500B49389 /* Word.h */,
 				BB5613FC1771605100B49389 /* Tag.cpp */,
@@ -198,6 +196,12 @@
 		BBC7D25617734366006E5611 /* symbols */ = {
 			isa = PBXGroup;
 			children = (
+				BB5613E71770E11900B49389 /* Env.cpp */,
+				BB5613E81770E11900B49389 /* Env.h */,
+				BBC7D24C1771F6A1006E5611 /* Array.cpp */,
+				BBC7D24D1771F6A2006E5611 /* Array.h */,
+				BB5613F617715C6D00B49389 /* Type.cpp */,
+				BB5613F717715C6E00B49389 /* Type.h */,
 			);
 			name = symbols;
 			sourceTree = "<group>";
@@ -222,8 +226,6 @@
 		BBC7D25A177343A8006E5611 /* Inter */ = {
 			isa = PBXGroup;
 			children = (
-				BB5613E71770E11900B49389 /* Env.cpp */,
-				BB5613E81770E11900B49389 /* Env.h */,
 				BB5613EA1770E2FC00B49389 /* Id.cpp */,
 				BB5613EB1770E2FC00B49389 /* Id.h */,
 				BB5613ED1770E35B00B49389 /* Expr.cpp */,
@@ -250,8 +252,6 @@
 				BBC7D2471771F5CD006E5611 /* Or.h */,
 				BBC7D2491771F60D006E5611 /* Rel.cpp */,
 				BBC7D24A1771F60D006E5611 /* Rel.h */,
-				BBC7D24C1771F6A1006E5611 /* Array.cpp */,
-				BBC7D24D1771F6A2006E5611 /* Array.h */,
 				BBC7D24F1771FA4B006E5611 /* Arith.cpp */,
 				BBC7D2501771FA4B006E5611 /* Arith.h */,
 				BBC7D252177314FB006E5611 /* Not.cpp */,

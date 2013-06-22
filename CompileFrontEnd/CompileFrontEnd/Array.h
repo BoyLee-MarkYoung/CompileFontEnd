@@ -16,10 +16,10 @@ class Array : public Type {
     
     
 public:
-    Type of;                  // array *of* type
+    Type *of;                  // array *of* type
     int size = 1;             // number of elements
-    Array(int sz, Type p)
-    :Type("[]", Tag::INDEX, sz*p.width), size(sz), of(p)
+    Array(int sz, Type *p)
+    :Type("[]", Tag::INDEX, sz*p->width), size(sz), of(p)
     {}
     
     string toString();

@@ -18,7 +18,7 @@ class Rel : public Logical {
     
     
 public:
-    Rel(Token tok, Expr x1, Expr x2)
+    Rel(Token *tok, Expr *x1, Expr *x2)
         : Logical(tok, x1, x2)
     {}
     
@@ -29,9 +29,9 @@ public:
     }
     
     void jumping(int t, int f) {
-        Expr a = expr1.reduce();
-        Expr b = expr2.reduce();
-        string test = a.toString() + " " + op.toString() + " " + b.toString();
+        Expr *a = expr1->reduce();
+        Expr *b = expr2->reduce();
+        string test = a->toString() + " " + op->toString() + " " + b->toString();
         emitjumps(test, t, f);
     }
 };

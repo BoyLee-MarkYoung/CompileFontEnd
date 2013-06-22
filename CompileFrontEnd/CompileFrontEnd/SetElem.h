@@ -20,26 +20,26 @@
 class SetElem :public Stmt{
 public:
     Id array;
-    Expr index;
-    Expr expr;
+    Expr *index;
+    Expr *expr;
     
-    SetElem(Access x, Expr y)
-    :array(x.array), index(x.index), expr(y)
+    SetElem(Access *x, Expr *y)
+    :array(x->array), index(x->index), expr(y)
     {
-        if ( check(x.type, expr.type) == Type::Null ) error("type error");
+        if ( *(check(x->type, expr->type)) == Type::Null ) error("type error");
     }
     
     
-    Type check(Type p1, Type p2) {
-        if ( typeid(p1) == typeid(Array) || typeid(p2) == typeid(Array) ) return Type::Null;
-        else if ( p1 == p2 ) return p2;
-        else if ( Type::numeric(p1) && Type::numeric(p2) ) return p2;
-        else return Type::Null;
+    Type* check(Type *p1, Type *p2) {
+        if ( typeid(p1) == typeid(Array) || typeid(p2) == typeid(Array) ) return &Type::Null;
+        else if ( *p1 == *p2 ) return p2;
+        else if ( Type::numeric(*p1) && Type::numeric(*p2) ) return p2;
+        else return &Type::Null;
     }
     
     void gen(int b, int a) {
-        string s1 = index.reduce().toString();
-        string s2 = expr.reduce().toString();
+        string s1 = index->reduce()->toString();
+        string s2 = expr->reduce()->toString();
         emit(array.toString() + " [ " + s1 + " ] = " + s2);
     }
     

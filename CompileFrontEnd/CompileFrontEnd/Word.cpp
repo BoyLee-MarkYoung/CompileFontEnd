@@ -26,7 +26,7 @@ bool Word::operator==(const Word &rhs)
 }
 
 
-const Word Word::eq = Word("==", Tag::EQ  ),
+Word Word::eq = Word("==", Tag::EQ  ),
 Word::ne = Word( "!=", Tag::NE ),
 Word::le = Word( "<=", Tag::LE  ),
 Word::ge = Word( ">=", Tag::GE ),

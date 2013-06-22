@@ -28,11 +28,11 @@ public:
     Word(){lexeme = "";}
     string toString() { return lexeme; }
     
-    const static Word
+    static Word
     eq,  ne, le,  ge, andd,  orr, //双目运算
     minus, True, False, temp; //单目运算
     
-    const static Word Null;
+    static Word Null;
     
     Word& operator=(const Word &rhs);
     bool operator!=(const Word &rhs);

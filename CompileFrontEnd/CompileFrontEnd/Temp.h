@@ -19,8 +19,8 @@ public:
     static int count;
     int number;
     
-    Temp(Type p)
-    : Expr(Word::temp, p), number(++count)
+    Temp(Type *p)
+    : Expr(&Word::temp, p), number(++count)
     {
         number = 0;
     }

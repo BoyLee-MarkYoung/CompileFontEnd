@@ -14,11 +14,11 @@ using namespace std;
 
 int main(int argc, const char * argv[])
 {
-
+    
     Lexer lex = Lexer();
-    Parser parse = Parser(lex);
+    Parser parse(lex);
     parse.program();
-    std::cout << "Hello, World!\n";
+//    std::cout << "Hello, World!\n";
     return 0;
 }
 

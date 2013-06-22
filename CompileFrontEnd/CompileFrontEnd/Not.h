@@ -15,12 +15,12 @@
 
 class Not : public Logical {
 public:
-    Not(Token tok, Expr x2)
+    Not(Token *tok, Expr *x2)
     :Logical(tok, x2, x2)
     {}
     
-    void jumping(int t, int f) { expr2.jumping(f, t); }
+    void jumping(int t, int f) { expr2->jumping(f, t); }
     
-    string toString() { return op.toString()+" "+expr2.toString(); }
+    string toString() { return op->toString()+" "+expr2->toString(); }
 };
 #endif /* defined(__CompileFrontEnd__Not__) */

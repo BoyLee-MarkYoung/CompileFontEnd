@@ -7,18 +7,25 @@
 //
 
 #include "Token.h"
+#include <sstream>
 
-Token const Token::Null;
+Token Token::Null;
 
 string Token::toString() {
-    char temp[64];
-    sprintf(temp, "%d",tag);
-    return string(temp);
+    ostringstream ss;
+    ss << (char)tag ;
+    return ss.str();
 }
 
 bool Token::operator==(const Token &rhs)
 {
-    return (this->tag == rhs.tag);
+    if (this->tag == rhs.tag) {
+//        cout << "same Token" << endl;
+        return true;
+    } else {
+//        cout << "diff Token" << endl;
+        return false;
+    }
 }
 
 
@@ -27,6 +34,11 @@ Token& Token::operator=(const Token &rhs)
     this->tag = rhs.tag;
     return *this;
 }
+
+//Token::operator Type()
+//{
+//    return Type()
+//}
 
 
 /*

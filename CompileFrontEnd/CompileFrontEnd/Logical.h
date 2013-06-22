@@ -19,18 +19,18 @@ using namespace std;
 class Logical :public Expr {
     
 public:
-    Expr expr1, expr2;
+    Expr *expr1, *expr2;
     
-    Logical(Token tok, Expr x1, Expr x2)
-    :Expr(tok, Type::Null), expr1(x1), expr2(x2)
+    Logical(Token *tok, Expr *x1, Expr *x2)
+    :Expr(tok, &Type::Null), expr1(x1), expr2(x2)
     {
-        type = check(expr1.type, expr2.type);
-        if (type == Type::Null ) error("type error");
+        type = check(expr1->type, expr2->type);
+        if (*type == Type::Null ) error("type error");
     }
     
-    Type check(Type p1, Type p2) {
-        if ( p1 == Type::Bool && p2 == Type::Bool ) return Type::Bool;
-        else return Type::Null;
+    Type* check(Type *p1, Type *p2) {
+        if ( *p1 == Type::Bool && *p2 == Type::Bool ) return &Type::Bool;
+        else return &Type::Null;
     }
     
     Expr gen() {
@@ -48,7 +48,7 @@ public:
     }
     
     string toString() {
-        return expr1.toString()+" "+op.toString()+" "+expr2.toString();
+        return expr1->toString()+" "+op->toString()+" "+expr2->toString();
     }
 };
 #endif /* defined(__CompileFrontEnd__Logical__) */

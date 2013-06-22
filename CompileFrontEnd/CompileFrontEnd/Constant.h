@@ -21,15 +21,15 @@ class Constant :public Expr {
     
     
 public:
-    Constant(Token tok, Type p)
+    Constant(Token *tok, Type *p)
     :Expr(tok, p)
     {}
     
     Constant(int i)
-    :Expr(Num(i), Type::Int)
+    :Expr(new Num(i), &Type::Int)
     {}
     
-    static const Constant
+    static Constant
     True, False;
     
     void jumping(int t, int f) {

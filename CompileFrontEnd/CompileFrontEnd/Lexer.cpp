@@ -20,16 +20,16 @@ Lexer& Lexer::operator=(const Lexer& rhs) {
 
 Lexer::Lexer ()
 {
-    reserve( Word("if",    Tag::IF)    );
-    reserve( Word("else",  Tag::ELSE)  );
-    reserve( Word("while", Tag::WHILE) );
-    reserve( Word("do",    Tag::DO)    );
-    reserve( Word("break", Tag::BREAK) );
+    reserve( new Word("if",    Tag::IF)    );
+    reserve( new Word("else",  Tag::ELSE)  );
+    reserve( new Word("while", Tag::WHILE) );
+    reserve( new Word("do",    Tag::DO)    );
+    reserve( new Word("break", Tag::BREAK) );
     
-    reserve( Word::True );  reserve( Word::False );
+    reserve(& Word::True );  reserve( &(Word::False) );
     
-    reserve( Type::Int  );  reserve( Type::Char  );
-    reserve( Type::Bool );  reserve( Type::Float );
+    reserve(& Type::Int  );  reserve( & Type::Char  );
+    reserve(& Type::Bool );  reserve( & Type::Float );
     peek = ' ';
 }
 
@@ -44,7 +44,7 @@ bool Lexer::readch(char c) {
 }
 
 
-Token Lexer::scan() {
+Token* Lexer::scan() {
     for( ; ; readch() ) {
         if( peek == ' ' || peek == '\t' ) continue;
         else if( peek == '\n' ) line = line + 1;
@@ -52,17 +52,17 @@ Token Lexer::scan() {
     }
     switch( peek ) {
         case '&':
-            if( readch('&') ) return Word::andd;  else return Token('&');
+            if( readch('&') ) return new Word(Word::andd);  else return new Token('&');
         case '|':
-            if( readch('|') ) return Word::orr;   else return  Token('|');
+            if( readch('|') ) return new Word(Word::orr);   else return new Token('|');
         case '=':
-            if( readch('=') ) return Word::eq;   else return  Token('=');
+            if( readch('=') ) return new Word(Word::eq);   else return new Token('=');
         case '!':
-            if( readch('=') ) return Word::ne;   else return  Token('!');
+            if( readch('=') ) return new Word(Word::ne);   else return new Token('!');
         case '<':
-            if( readch('=') ) return Word::le;   else return  Token('<');
+            if( readch('=') ) return new Word(Word::le);   else return new Token('<');
         case '>':
-            if( readch('=') ) return Word::ge;   else return  Token('>');
+            if( readch('=') ) return new Word(Word::ge);   else return new Token('>');
     }
     if( isdigit(peek) ) {
         int v = 0;
@@ -72,7 +72,7 @@ Token Lexer::scan() {
         } while( isdigit(peek) );
         
         if( peek != '.' )
-            return  Num(v);
+            return  new Num(v);
         float x = v; float d = 10;
         for(;;) {
             readch();
@@ -80,22 +80,22 @@ Token Lexer::scan() {
             x = x + atoi(&peek) / d;
             d = d*10;
         }
-        return  Real(x);
+        return  new Real(x);
     }
-    if( isalpha(peek) or peek=='_') {
+    if( isalnum(peek) or peek=='_') {
         string b;
         do {
             b.append(&peek);
             readch();
         } while( isalnum(peek) );
-        Word w = (Word)words[b];
-        if( w != Word::Null )
+        Word *w = words[b];
+        if( w != NULL )
             return w;
-        w =  Word(b, Tag::ID);
-//        words.insert(pair<string, Word>(b, w));
+        w =  new Word(b, Tag::ID);
+        words.insert(make_pair(b, w));
         return w;
     }
-    Token tok =  Token(peek);
+    Token *tok =  new Token(peek);
     peek = ' ';
     return tok;
 }

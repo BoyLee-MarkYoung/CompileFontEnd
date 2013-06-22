@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "Tag.h"
+//#include "Type.h"
 //#include "Word.h"
 
 using namespace std;
@@ -24,12 +25,14 @@ public:
     
     virtual void foo(){}
     Token(){ tag = Tag::Null;}
-    string toString();
+    virtual string toString();
     
     
-    static const Token Null;
+    static Token Null;
     bool operator==(const Token &rhs);
 //    operator Word();
     Token& operator=(const Token &rhs);
+    
+//    operator Type();
 };
 #endif /* defined(__CompileFrontEnd__Token__) */

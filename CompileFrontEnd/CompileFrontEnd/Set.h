@@ -16,22 +16,22 @@
 class Set :public Stmt{
 public:
     Id id;
-    Expr expr;
+    Expr *expr;
     
-    Set(Id i, Expr x)
+    Set(Id i, Expr *x)
     :id(i), expr(x)
     {
-        if ( check(id.type, expr.type) == Type::Null ) error("type error");
+        if ( *(check(id.type, expr->type)) == Type::Null ) error("type error");
     }
     
-    Type check(Type p1, Type p2) {
-        if ( Type::numeric(p1) && Type::numeric(p2) ) return p2;
-        else if ( p1 == Type::Bool && p2 == Type::Bool ) return p2;
-        else return Type::Null;
+    Type* check(Type *p1, Type *p2) {
+        if ( Type::numeric(*p1) && Type::numeric(*p2) ) return p2;
+        else if ( *p1 == Type::Bool && *p2 == Type::Bool ) return p2;
+        else return &Type::Null;
     }
     
     void gen(int b, int a) {
-        emit( id.toString() + " = " + expr.gen().toString() );
+        emit( id.toString() + " = " + expr->gen()->toString() +"\n");
     }
     
 

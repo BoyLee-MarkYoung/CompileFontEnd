@@ -24,7 +24,7 @@ public:
         :Word(s, tag), width(w)
     {}
     
-    static const Type
+    static Type
     Int,
     Float,
     Char,
@@ -36,15 +36,17 @@ public:
         else return false;
     }
     
-    static Type max(Type p1, Type p2 ) {
-        if ( ! numeric(p1) || ! numeric(p2) ) return Type::Null;
-        else if ( p1 == Type::Float || p2 == Type::Float ) return Type::Float;
-        else if ( p1 == Type::Int   || p2 == Type::Int   ) return Type::Int;
-        else return Type::Char;
+    static Type* max(Type *p1, Type *p2 ) {
+        if ( ! numeric(*p1) || ! numeric(*p2) ) return &Type::Null;
+        else if ( *p1 == Type::Float || *p2 == Type::Float ) return &Type::Float;
+        else if ( *p1 == Type::Int   || *p2 == Type::Int   ) return &Type::Int;
+        else return &Type::Char;
     }
     
     bool operator==(const Type &rhs);
     
     Type& operator=(const Type &rhs);
+    Type& operator=(const Word &ths);
+
 };
 #endif /* defined(__CompileFrontEnd__Type__) */

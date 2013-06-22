@@ -23,13 +23,16 @@ class Lexer {
 public:
     static int line;
     char peek;
-    map<string, Word> words;
-    void reserve(Word w) { words.insert(make_pair(w.lexeme, w)); }
+    map<string, Word*> words;
+    void reserve( Word* w) { words.insert(make_pair(w->lexeme, w)); }
     
     Lexer();
-    void readch() { peek = getchar(); }
+    void readch() {
+        peek = getchar();
+//        cout << endl << peek << ' ';
+    }
     bool readch(char c);
-    Token scan();
+    Token* scan();
     
     Lexer& operator=(const Lexer& rhs);
 

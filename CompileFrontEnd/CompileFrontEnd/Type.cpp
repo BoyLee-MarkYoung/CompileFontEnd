@@ -24,8 +24,15 @@ Type& Type::operator=(const Type &rhs)
     return *this;
 }
 
+Type& Type::operator=(const Word &rhs)
+{
+    this->lexeme = rhs.lexeme;
+    this->width = 0;//待定
+    return *this;
+}
 
-const Type
+
+Type
 Type::Int   = Type( "int",   Tag::BASIC, 4 ),
 Type::Float = Type( "float", Tag::BASIC, 8 ),
 Type::Char  = Type( "char",  Tag::BASIC, 1 ),

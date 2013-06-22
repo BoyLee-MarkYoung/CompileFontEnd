@@ -17,21 +17,21 @@ class Do :public Stmt {
     
     
 public:
-    Expr expr; Stmt stmt;
+    Expr *expr; Stmt *stmt;
     
-    Do() { expr = Expr::Null; stmt = Stmt::Null; }
+    Do() { expr = &Expr::Null; stmt = &Stmt::Null; }
     
-    void init(Stmt s, Expr x) {
+    void init(Stmt *s, Expr *x) {
         expr = x; stmt = s;
-        if( expr.type != Type::Bool ) expr.error("boolean required in do");
+        if( *(expr->type) != Type::Bool ) expr->error("boolean required in do");
     }
     
     void gen(int b, int a) {
         after = a;
         int label = newlabel();   // label for expr
-        stmt.gen(b,label);
+        stmt->gen(b,label);
         emitlabel(label);
-        expr.jumping(b,0);
+        expr->jumping(b,0);
     }
 };
 #endif /* defined(__CompileFrontEnd__Do__) */

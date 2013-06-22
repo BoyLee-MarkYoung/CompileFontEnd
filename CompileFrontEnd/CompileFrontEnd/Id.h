@@ -21,7 +21,7 @@ class Id :public Expr
 public:
     int offset;     // relative address
     
-    Id(Word idd, Type p, int b)
+    Id(Word *idd, Type *p, int b)
     :Expr(idd, p), offset(b)
     {}
     
@@ -31,6 +31,9 @@ public:
     const static Id Null;
     bool operator==(const Id& rhs);
     bool operator!=(const Id& rhs);
+    Id& operator=(const Id& rhs);
+    
+//    string toString();
 
 
 };

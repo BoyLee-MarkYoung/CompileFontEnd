@@ -7,9 +7,10 @@
 //
 
 #include "Constant.h"
-const Constant
-Constant::True  = Constant(Word::True,  Type::Bool),
-Constant::False = Constant(Word::False, Type::Bool);
+
+Constant
+Constant::True  = Constant(&Word::True,  &Type::Bool),
+Constant::False = Constant(&Word::False, &Type::Bool);
 
 
 

@@ -18,19 +18,19 @@ class While : public Stmt {
     
     
 public:
-    Expr expr; Stmt stmt;
+    Expr *expr; Stmt *stmt;
     
-    While() { expr = Expr::Null; stmt = Stmt::Null; }
+    While() { expr = &Expr::Null; stmt = &Stmt::Null; }
     
-    void init(Expr x, Stmt s) {
+    void init(Expr *x, Stmt *s) {
         expr = x;  stmt = s;
-        if( expr.type != Type::Bool ) expr.error("boolean required in while");
+        if( *(expr->type) != Type::Bool ) expr->error("boolean required in while");
     }
     void gen(int b, int a) {
         after = a;                // save label a
-        expr.jumping(0, a);
+        expr->jumping(0, a);
         int label = newlabel();   // label for stmt
-        emitlabel(label); stmt.gen(label, b);
+        emitlabel(label); stmt->gen(label, b);
         ostringstream ss;
         ss << "goto L" << b;
         emit(ss.str());
