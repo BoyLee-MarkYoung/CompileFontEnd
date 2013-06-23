@@ -32,6 +32,7 @@ public:
     bool operator==(const Token &rhs);
 //    operator Word();
     Token& operator=(const Token &rhs);
+    bool operator==(Token* rhs);
     
 //    operator Type();
 };

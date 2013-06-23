@@ -13,13 +13,23 @@
 #include "Token.h"
 #include "Id.h"
 #include <map>
+#include "Word.h"
 //#include "Word.h"
 
 
 using namespace std;
 struct classcomp {
-    bool operator() (const Token* lhs, const Token* rhs) const
-    {return lhs->tag<rhs->tag;}
+    bool operator() (Token* lhs, Token* rhs) const
+    {
+        Word *lhw = dynamic_cast<Word*>(lhs);
+        Word *rhw = dynamic_cast<Word*>(rhs);
+        bool isWordSame = true;
+        if ( lhw && rhw)
+        {
+            isWordSame = (lhw->lexeme < rhw->lexeme);
+        }
+        return (lhs->tag <= rhs->tag) && isWordSame;
+    }
 };
 
 

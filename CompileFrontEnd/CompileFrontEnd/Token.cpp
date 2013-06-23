@@ -8,6 +8,7 @@
 
 #include "Token.h"
 #include <sstream>
+#include "Word.h"
 
 Token Token::Null;
 
@@ -28,6 +29,15 @@ bool Token::operator==(const Token &rhs)
     }
 }
 
+bool Token::operator==( Token* rhs)
+{
+    Word *lhw = dynamic_cast<Word *>(this);
+    Word *rhw = dynamic_cast<Word *>(rhs);
+    if ( lhw && rhw) {
+        return (lhw->tag == rhw->tag && lhw->lexeme == rhw->lexeme);
+    }
+    return *this==*rhs;
+}
 
 Token& Token::operator=(const Token &rhs)
 {

@@ -28,8 +28,7 @@ void Node::emitlabel(int i) {
 }
 
 void Node::emit(string s) {
-    cout << "\t"
-        << s;
+    cout <<"\t"<< s<< "\r";
 }
 
 bool Node::operator==(const Node& rhs)

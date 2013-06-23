@@ -75,7 +75,6 @@ Type* Parser::type()
         cerr << "sytax err1";
         return NULL;
     }
-
 }
 
 Type* Parser::dims(Type *p)
@@ -85,11 +84,11 @@ Type* Parser::dims(Type *p)
         return NULL;
     }
     match('[');
+    Num* num = dynamic_cast<Num*>(look);
     match(Tag::NUM);
     match(']');
     if( look->tag == '[' )
         p = dims(p);
-    Num* num = dynamic_cast<Num*>(look);
     if (num)
         return new Array(num->value, p);//?????
     else {
@@ -198,8 +197,9 @@ Expr* Parser::booll()
 {
     Expr* x = join();
     while( look->tag == Tag::OR ) {
+        Token *tok = look;
         move();
-        x = new Or(look, x, join());
+        x = new Or(tok, x, join());
     }
     return x;
 }
@@ -207,8 +207,9 @@ Expr* Parser::booll()
 Expr* Parser::join(){
     Expr* x = equality();
     while( look->tag == Tag::AND ) {
+        Token *tok = look;
         move();
-        x = new And(look, x, equality());
+        x = new And(tok, x, equality());
     }
     return x;
 }
@@ -217,9 +218,9 @@ Expr* Parser::equality()
 {
     Expr* x = rel();
     while( look->tag == Tag::EQ || look->tag == Tag::NE ) {
-
+        Token *tok = look;
         move();
-        x = new Rel(look, x, rel());
+        x = new Rel(tok, x, rel());
     }
     return x;
 }
@@ -229,8 +230,9 @@ Expr* Parser::rel() {
     switch( look->tag ) {
         case '<': case Tag::LE: case Tag::GE: case '>':
         {
+            Token *tok = look;
             move();
-            return new Rel(look, x, expr());
+            return new Rel(tok, x, expr());
         }
         default:
             return x;
@@ -240,8 +242,9 @@ Expr* Parser::rel() {
 Expr* Parser::expr() {
     Expr *x = term();
     while( look->tag == '+' || look->tag == '-' ) {
+        Token *tok = look;
         move();
-        x = new Arith(look, x, term());
+        x = new Arith(tok, x, term());
     }
     return x;
 }
@@ -249,8 +252,9 @@ Expr* Parser::expr() {
 Expr* Parser::term(){
     Expr *x = unary();
     while(look->tag == '*' || look->tag == '/' ) {
+        Token *tok = look;
         move();
-        x = new Arith(look, x, unary());
+        x = new Arith(tok, x, unary());
     }
     return x;
 }
@@ -261,8 +265,9 @@ Expr* Parser::unary() {
         return new Unary(&Word::minus, unary());
     }
     else if( look->tag == '!' ) {
+        Token *tok = look;
         move();
-        return new Not(look, unary());
+        return new Not(tok, unary());
     }
     else
         return factor();
@@ -292,16 +297,20 @@ Expr* Parser::factor() {
             x = &Constant::False;
             move();
             return x;
+        case Tag::ID:
+        {
+            string s = look->toString();
+            Id *id = new Id(top->get(look));
+            if( *id == Id::Null )
+                error(look->toString() + " undeclared");
+                move();
+            if( look->tag != '[' ) return id;
+                else return offset(*id);
+        }
         default:
             error("syntax error5");
             return x;
-//        case Tag::ID:
-//            string s = look.toString();
-//            Id id = top[look];
-//            if( id == null ) error(look.toString() + " undeclared");
-//                move();
-//            if( look.tag != '[' ) return id;
-//                else return offset(id);
+
             
     }
 }
@@ -310,19 +319,34 @@ Access* Parser::offset(Id a)
 {   // I -> [E] | [E] I
     Expr *i; Expr *w; Expr *t1, *t2; Expr *loc;  // inherit id
     
-    Array* type = dynamic_cast<Array*>(a.type);
-    match('['); i = booll(); match(']');     // first index, I -> [ E ]
-    w = new Constant(type->of->width);
-    t1 = new Arith(new Token('*'), i, w);
-    loc = t1;
-    while( look->tag == '[' ) {      // multi-dimensional I -> [ E ] I
-        match('['); i = booll(); match(']');
-        w = new Constant(type->of->width);
-        t1 = new Arith( new Token('*'), i, w);
-        t2 = new Arith( new Token('+'), loc, t1);
-        loc = t2;
-    }
+
+    match('[');
+    i = booll();
+    match(']');     // first index, I -> [ E ]
     
-    return new Access(a, loc, type);
+    //需要异常处理
+    Array *temptype = dynamic_cast<Array*>(a.type);
+    if (temptype) {
+        Type* type = temptype->of;
+    
+        w = new Constant(type->width);
+        t1 = new Arith(new Token('*'), i, w);
+        loc = t1;
+        while( look->tag == '[' ) {      // multi-dimensional I -> [ E ] I
+            match('[');
+            i = booll();
+            match(']');
+            type = dynamic_cast<Array*>(type)->of;
+            Type* type = new Type(*temptype->of);
+            w = new Constant(type->width);
+            t1 = new Arith( new Token('*'), i, w);
+            t2 = new Arith( new Token('+'), loc, t1);
+            loc = t2;
+        }
+        
+        return new Access(a, loc, type);
+    } else {
+        return NULL;
+    }
 }
 

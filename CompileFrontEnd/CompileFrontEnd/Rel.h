@@ -19,13 +19,21 @@ class Rel : public Logical {
     
 public:
     Rel(Token *tok, Expr *x1, Expr *x2)
-        : Logical(tok, x1, x2)
-    {}
+//    :Logical(tok, x1, x2)
+    {
+        this->op = tok;
+        this->type = &Type::Null;
+        this->expr1 = x1;
+        this->expr2 = x2;
+        this->type = check(expr1->type, expr2->type);
+        if (*type == Type::Null )
+            error("type error");
+    }
     
-    Type check(Type p1, Type p2) {
-        if ( typeid(p1) == typeid(Array) || typeid(p2) == typeid(Array) ) return Type::Null;
-        else if( p1 == p2 ) return Type::Bool;
-        else return Type::Null;
+    Type* check(Type *p1, Type* p2) {
+        if ( typeid(p1) == typeid(Array) || typeid(p2) == typeid(Array) ) return &Type::Null;
+        else if( *p1 == *p2 ) return &Type::Bool;
+        else return &Type::Null;
     }
     
     void jumping(int t, int f) {

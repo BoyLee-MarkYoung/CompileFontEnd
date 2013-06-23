@@ -26,7 +26,8 @@ public:
     SetElem(Access *x, Expr *y)
     :array(x->array), index(x->index), expr(y)
     {
-        if ( *(check(x->type, expr->type)) == Type::Null ) error("type error");
+        if ( *(check(x->type, expr->type)) == Type::Null )
+            error("type error");
     }
     
     

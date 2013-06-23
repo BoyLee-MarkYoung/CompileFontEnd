@@ -29,13 +29,13 @@ public:
     :op(&Token::Null), type(&Type::Null)
     {}
     
-    Expr* gen() { return this; }
-    Expr* reduce() { return this; }
+    virtual Expr* gen() { return this; }
+    virtual Expr* reduce() { return this; }
     
-    void jumping(int t, int f) { emitjumps(toString(), t, f); }
-    void emitjumps(string test, int t, int f);
+    virtual void jumping(int t, int f) { emitjumps(toString(), t, f); }
+    virtual void emitjumps(string test, int t, int f);
 
-    string toString() { return op->toString(); }
+    virtual string toString() { return op->toString(); }
     
     static Expr Null;
     

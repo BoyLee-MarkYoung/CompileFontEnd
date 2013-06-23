@@ -9,7 +9,7 @@
 #include "Lexer.h"
 #include "Tag.h"
 
-int Lexer::line;
+int Lexer::line = 1;
 
 Lexer& Lexer::operator=(const Lexer& rhs) {
     this->peek = rhs.peek;

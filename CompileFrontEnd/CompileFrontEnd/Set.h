@@ -21,7 +21,8 @@ public:
     Set(Id i, Expr *x)
     :id(i), expr(x)
     {
-        if ( *(check(id.type, expr->type)) == Type::Null ) error("type error");
+        if ( *(check(id.type, expr->type)) == Type::Null )
+            error("type error");
     }
     
     Type* check(Type *p1, Type *p2) {
@@ -31,9 +32,9 @@ public:
     }
     
     void gen(int b, int a) {
-        emit( id.toString() + " = " + expr->gen()->toString() +"\n");
+        emit( id.toString() + " = " + expr->gen()->toString());
     }
     
-
+    
 };
 #endif /* defined(__CompileFrontEnd__Set__) */

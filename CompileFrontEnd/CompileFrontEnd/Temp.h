@@ -22,7 +22,6 @@ public:
     Temp(Type *p)
     : Expr(&Word::temp, p), number(++count)
     {
-        number = 0;
     }
     
 
