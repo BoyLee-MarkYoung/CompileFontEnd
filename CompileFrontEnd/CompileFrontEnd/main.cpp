@@ -15,10 +15,9 @@ using namespace std;
 int main(int argc, const char * argv[])
 {
     
-    Lexer lex = Lexer();
+    Lexer lex = Lexer(argv[1]);
     Parser parse(lex);
     parse.program();
 //    std::cout << "Hello, World!\n";
     return 0;
 }
-

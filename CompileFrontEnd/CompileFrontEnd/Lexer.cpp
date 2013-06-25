@@ -12,14 +12,37 @@
 int Lexer::line = 1;
 
 Lexer& Lexer::operator=(const Lexer& rhs) {
+    this->fp = rhs.fp;
     this->peek = rhs.peek;
     this->line = rhs.line;
     this->words = rhs.words;
     return *this;
 }
 
-Lexer::Lexer ()
+Lexer::Lexer() {
+    fn[0] = '\0';
+    fp = NULL;
+    reserve( new Word("if",    Tag::IF)    );
+    reserve( new Word("else",  Tag::ELSE)  );
+    reserve( new Word("while", Tag::WHILE) );
+    reserve( new Word("do",    Tag::DO)    );
+    reserve( new Word("break", Tag::BREAK) );
+    
+    reserve(& Word::True );  reserve( &(Word::False) );
+    
+    reserve(& Type::Int  );  reserve( & Type::Char  );
+    reserve(& Type::Bool );  reserve( & Type::Float );
+    peek = ' ';
+}
+
+Lexer::Lexer (const char *filename)
 {
+    strcpy(fn, filename);
+    fp = fopen(filename, "r");
+    if (fp == NULL) {
+#pragma mark 文件打开失败的处理
+        printf("File not found!\n");
+    }
     reserve( new Word("if",    Tag::IF)    );
     reserve( new Word("else",  Tag::ELSE)  );
     reserve( new Word("while", Tag::WHILE) );

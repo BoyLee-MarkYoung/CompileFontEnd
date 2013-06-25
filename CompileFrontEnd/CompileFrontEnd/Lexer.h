@@ -16,11 +16,14 @@
 #include "Num.h"
 #include "Real.h"
 
+#define MAX_FILE_NAME_LENGTH 256
 
 using namespace std;
 
-
 class Lexer {
+private:
+    FILE *fp;
+    char fn[MAX_FILE_NAME_LENGTH];
 public:
     static int line;
     char peek;
@@ -28,8 +31,12 @@ public:
     void reserve( Word* w) { words.insert(make_pair(w->lexeme, w)); }
     
     Lexer();
+    Lexer(const char *filename);
     void readch() {
-        peek = getchar();
+        if (fp != NULL)
+            peek = fgetc(fp);
+        else peek = 'a';
+//        peek = getchar();
 //        cout << endl << peek << ' ';
     }
     bool readch(char c);
