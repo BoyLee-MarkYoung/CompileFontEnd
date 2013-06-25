@@ -35,14 +35,18 @@ public:
     void readch() {
         if (fp != NULL)
             peek = fgetc(fp);
-        else peek = 'a';
-//        peek = getchar();
-//        cout << endl << peek << ' ';
+        else
+        {
+            peek = '}';
+#pragma mark 文件指针为空，错误处理
+        }
+        //        peek = getchar();
+        //        cout << endl << peek << ' ';
     }
     bool readch(char c);
     Token* scan();
     
     Lexer& operator=(const Lexer& rhs);
-
+    
 };
 #endif /* defined(__CompileFrontEnd__Lexer__) */

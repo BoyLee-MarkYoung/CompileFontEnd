@@ -58,12 +58,12 @@ Lexer::Lexer (const char *filename)
 
 
 bool Lexer::readch(char c) {
-
+    
     readch();
     if( peek != c ) return false;
     peek = ' ';
     return true;
-
+    
 }
 
 

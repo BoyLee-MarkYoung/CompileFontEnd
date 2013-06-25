@@ -1,4 +1,4 @@
- //
+//
 //  Parser.cpp
 //  CompileFrontEnd
 //
@@ -13,7 +13,7 @@
 void Parser::match(int t) {
     try {
         if( look->tag == t ) {
-//            cout <<endl << look->tag << endl;
+            //            cout <<endl << look->tag << endl;
             move();
         }
         else
@@ -174,10 +174,10 @@ Stmt* Parser::assign()
     id = top->get(look);
     match(Tag::ID);
     
-//    else {
-//        cerr << "sytax err4";
-//        return Stmt::Null;
-//    }
+    //    else {
+    //        cerr << "sytax err4";
+    //        return Stmt::Null;
+    //    }
     if( id == Id::Null )
         error(look->toString() + " undeclared");
     
@@ -303,14 +303,14 @@ Expr* Parser::factor() {
             Id *id = new Id(top->get(look));
             if( *id == Id::Null )
                 error(look->toString() + " undeclared");
-                move();
+            move();
             if( look->tag != '[' ) return id;
-                else return offset(*id);
+            else return offset(*id);
         }
         default:
             error("syntax error5");
             return x;
-
+            
             
     }
 }
@@ -319,7 +319,7 @@ Access* Parser::offset(Id a)
 {   // I -> [E] | [E] I
     Expr *i; Expr *w; Expr *t1, *t2; Expr *loc;  // inherit id
     
-
+    
     match('[');
     i = booll();
     match(']');     // first index, I -> [ E ]
@@ -328,7 +328,7 @@ Access* Parser::offset(Id a)
     Array *temptype = dynamic_cast<Array*>(a.type);
     if (temptype) {
         Type* type = temptype->of;
-    
+        
         w = new Constant(type->width);
         t1 = new Arith(new Token('*'), i, w);
         loc = t1;
