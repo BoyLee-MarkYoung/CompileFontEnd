@@ -41,6 +41,7 @@ int main(int argc, const char * argv[]) {
         printf("The child process is %d\n", c_pid);
         
         while (1) {
+            system("clear");
             for (d_count = 0; d_count < 10; ++d_count)
             {
                 printf("Draw...\n"); // 不能使用printf，使用write，否则缓冲区不刷出
