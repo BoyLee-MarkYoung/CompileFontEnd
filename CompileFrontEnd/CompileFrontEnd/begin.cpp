@@ -51,6 +51,7 @@ int main(int argc, const char * argv[]) {
         }
     } else {
         //子进程
+        //printf("%s", argv[1]);
         for (i = 1; i < argc; ++i)
         {
             sleep(1); // 可以看效果
@@ -87,6 +88,7 @@ void handler(int num) {
 }
 
 void *compile(void *filename) {
+   // cout << filename;
     Lexer lex = Lexer((char *)filename);
     Parser parse(lex);
     parse.program();
