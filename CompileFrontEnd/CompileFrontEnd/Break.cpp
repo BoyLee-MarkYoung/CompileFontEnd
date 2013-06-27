@@ -7,3 +7,15 @@
 //
 
 #include "Break.h"
+
+
+void Break::gen(int b, int a) {
+    ostringstream ss;
+    ss << "goto L" << stmt->after;
+    emit(ss.str());
+}
+
+Break::Break() {
+    if( *Stmt::Enclosing == Stmt::Null ) error("unenclosed break");
+    stmt = Stmt::Enclosing;
+}
