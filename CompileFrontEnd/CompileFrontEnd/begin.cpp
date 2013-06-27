@@ -2,6 +2,14 @@
 //  begin.cpp
 //  CompileFrontEnd
 //
+//  Created by Boy on 6/27/13.
+//  Copyright (c) 2013 Boy-Mark. All rights reserved.
+//
+
+//
+//  begin.cpp
+//  CompileFrontEnd
+//
 //  Created by Boy on 6/25/13.
 //  Copyright (c) 2013 Boy-Mark. All rights reserved.
 //
@@ -88,7 +96,7 @@ void handler(int num) {
 }
 
 void *compile(void *filename) {
-   // cout << filename;
+    // cout << filename;
     Lexer lex = Lexer((char *)filename);
     Parser parse(lex);
     parse.program();
