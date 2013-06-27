@@ -310,8 +310,6 @@ Expr* Parser::factor() {
         default:
             error("syntax error5");
             return x;
-            
-            
     }
 }
 

@@ -19,22 +19,8 @@
 
 #define CON_COMPILE 100
 
-void handler(int num) {
-    // 接受到SIGCHLD的信号
-    int status;
-    int pid = waitpid(-1, &status, WNOHANG);
-    if (WIFEXITED(status)) {
-        printf("The child %d exit with code %d\n", pid, WEXITSTATUS(status));
-        exit(0);
-    }
-}
-
-void *compile(void *filename) {
-    Lexer lex = Lexer((char *)filename);
-    Parser parse(lex);
-    parse.program();
-    return NULL;
-}
+void handler(int num);
+void *compile(void *filename);
 
 int main(int argc, const char * argv[]) {
     int c_pid;
@@ -87,4 +73,21 @@ int main(int argc, const char * argv[]) {
         sleep(2);
         exit(0);
     }
+}
+
+void handler(int num) {
+    // 接受到SIGCHLD的信号
+    int status;
+    int pid = waitpid(-1, &status, WNOHANG);
+    if (WIFEXITED(status)) {
+        printf("The child %d exit with code %d\n", pid, WEXITSTATUS(status));
+        exit(0);
+    }
+}
+
+void *compile(void *filename) {
+    Lexer lex = Lexer((char *)filename);
+    Parser parse(lex);
+    parse.program();
+    return NULL;
 }
