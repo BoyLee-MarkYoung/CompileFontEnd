@@ -12,12 +12,12 @@
 
 using namespace std;
 
-//int main(int argc, const char * argv[])
-//{
-//    
-//    Lexer lex = Lexer(argv[1]);
-//    Parser parse(lex);
-//    parse.program();
-////    std::cout << "Hello, World!\n";
-//    return 0;
-//}
+int main(int argc, const char * argv[])
+{
+    
+    Lexer lex = Lexer();
+    Parser parse(lex);
+    parse.program();
+//    std::cout << "Hello, World!\n";
+    return 0;
+}

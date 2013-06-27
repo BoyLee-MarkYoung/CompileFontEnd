@@ -22,7 +22,8 @@ public:
     :Op(tok, &Type::Null),expr(x)
     {
         type = Type::max(&Type::Int, expr->type);
-        if (*type == Type::Null ) error("type error");
+        if (*type == Type::Null )
+            error("type error");
     }
     
     Expr* gen() { return new Unary(op, expr->reduce()); }

@@ -21,17 +21,8 @@ public:
     
     Do() { expr = &Expr::Null; stmt = &Stmt::Null; }
     
-    void init(Stmt *s, Expr *x) {
-        expr = x; stmt = s;
-        if( *(expr->type) != Type::Bool ) expr->error("boolean required in do");
-    }
+    void init(Stmt *s, Expr *x);
     
-    void gen(int b, int a) {
-        after = a;
-        int label = newlabel();   // label for expr
-        stmt->gen(b,label);
-        emitlabel(label);
-        expr->jumping(b,0);
-    }
+    void gen(int b, int a);
 };
 #endif /* defined(__CompileFrontEnd__Do__) */

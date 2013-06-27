@@ -33,15 +33,8 @@ public:
     Lexer();
     Lexer(const char *filename);
     void readch() {
-        if (fp != NULL)
-            peek = fgetc(fp);
-        else
-        {
-            peek = EOF;
-#pragma mark 文件指针为空，错误处理
-        }
-        //        peek = getchar();
-//        cout << endl << peek << ' ';
+        peek = getchar();
+        //        cout << endl << peek << ' ';
     }
     bool readch(char c);
     Token* scan();
