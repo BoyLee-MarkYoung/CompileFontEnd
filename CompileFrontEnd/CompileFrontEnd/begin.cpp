@@ -12,12 +12,18 @@
 #include <signal.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include <pthread.h>
 
 #include "Lexer.h"
 #include "Parser.h"
 
 #define CON_COMPILE 100
+#define USLEEP_TIME 100
+#define BUF_SIZE 10
+#define FILE_NAME "test.txt"
 
 void handler(int num);
 void *compile(void *filename);
@@ -26,10 +32,10 @@ int main(int argc, const char * argv[]) {
     int c_pid;
     int pid;
     pthread_t tid[CON_COMPILE];
-    int d_count; // 动画用
     int err;
     int i;
     void *tret;
+    char buf[BUF_SIZE];
     
     if (argc == 1) exit(0);
     
@@ -39,15 +45,26 @@ int main(int argc, const char * argv[]) {
         //父进程
         c_pid = pid;
         printf("The child process is %d\n", c_pid);
-        
+        int fd = open(FILE_NAME, O_RDONLY);
         while (1) {
             system("clear");
-            for (d_count = 0; d_count < 10; ++d_count)
+            if (fd != -1)
             {
-                printf("Draw...\n"); // 不能使用printf，使用write，否则缓冲区不刷出
+                while (read(fd, buf, 2) > 0)
+                {
+                    write(0, buf, 2);
+                    usleep(USLEEP_TIME);
+                }
                 sleep(1);
+                printf("\n\n\n");
             }
-            printf("\n\n\n");
+            else
+            {
+                printf("Loading...");
+                sleep(100);
+            }
+            
+            lseek(fd, 0, SEEK_SET);
         }
     } else {
         //子进程
