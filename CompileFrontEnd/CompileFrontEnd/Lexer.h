@@ -33,7 +33,11 @@ public:
     Lexer();
     Lexer(const char *filename);
     void readch() {
-        peek = getchar();
+        if (fp != NULL)
+            peek = fgetc(fp);
+        else
+            peek = EOF;
+//        peek = getchar();
         //        cout << endl << peek << ' ';
     }
     bool readch(char c);
