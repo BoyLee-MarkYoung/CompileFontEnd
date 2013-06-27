@@ -6,14 +6,6 @@
 //  Copyright (c) 2013 Boy-Mark. All rights reserved.
 //
 
-//
-//  begin.cpp
-//  CompileFrontEnd
-//
-//  Created by Boy on 6/25/13.
-//  Copyright (c) 2013 Boy-Mark. All rights reserved.
-//
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
