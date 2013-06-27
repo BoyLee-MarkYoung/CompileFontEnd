@@ -37,11 +37,11 @@ public:
             peek = fgetc(fp);
         else
         {
-            peek = '}';
+            peek = EOF;
 #pragma mark 文件指针为空，错误处理
         }
         //        peek = getchar();
-        //        cout << endl << peek << ' ';
+//        cout << endl << peek << ' ';
     }
     bool readch(char c);
     Token* scan();
