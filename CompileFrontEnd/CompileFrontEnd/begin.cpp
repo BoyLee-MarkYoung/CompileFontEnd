@@ -22,14 +22,16 @@
 
 #define CON_COMPILE 100
 #define USLEEP_TIME 100
-#define BUF_SIZE 10
+#define BUF_SIZE 8192
 #define GEEK_FILE_NAME "geek.txt"
 #define COMPILING_FILE_NAME "compiling.txt"
 #define COMPLETE_FILE_NAME "complete.txt"
+#define LOG_FILE_NAME "log.txt"
 
 int geek_fd;
 int compiling_fd;
 int complete_fd;
+int log_fd;
 char buf[BUF_SIZE];
 
 void handler(int num);
@@ -46,12 +48,17 @@ int main(int argc, const char * argv[])
     
     if (argc == 1) exit(0);
     
+    log_fd = open(LOG_FILE_NAME, O_CREAT | O_APPEND | O_RDWR);
+    
     signal(SIGCHLD, handler);
     
     if ((pid = fork())) {
         //父进程
         c_pid = pid;
-        printf("The child process is %d\n", c_pid);
+        
+        sprintf(buf, "The child process is %d\n", c_pid);
+        write(log_fd, buf, strlen(buf));
+        
         geek_fd = open(GEEK_FILE_NAME, O_RDONLY);
         compiling_fd = open(COMPILING_FILE_NAME, O_RDONLY);
 
@@ -87,17 +94,18 @@ int main(int argc, const char * argv[])
             err = pthread_create(&tid[i], NULL, compile, (void *)argv[i]);
             if (err != 0)
             {
-                printf("thread create error: %s\n", strerror(err));
+                sprintf(buf, "thread create error: %s\n", strerror(err));
+                write(log_fd, buf, strlen(buf));
                 exit(-1);
             }
         }
         for (i = 1; i < argc; ++i)
         {
-            sleep(5);
             err = pthread_join(tid[i], &tret);
             if (err != 0)
             {
-                printf("can not join with thread: %s\n", strerror(err));
+                sprintf(buf, "can not join with thread: %s\n", strerror(err));
+                write(log_fd, buf, strlen(buf));
                 exit(-1);
             }
 //            printf("thread exit code %ld\n", (long)tret);
@@ -117,11 +125,13 @@ void handler(int num) {
     int status;
     int pid = waitpid(-1, &status, WNOHANG);
     if (WIFEXITED(status)) {
-//        printf("The child %d exit with code %d\n", pid, WEXITSTATUS(status));
+        sprintf(buf, "The child %d exit with code %d\n", pid, WEXITSTATUS(status));
+        write(log_fd, buf, strlen(buf));
         
         while (read(complete_fd, buf, BUF_SIZE) > 0)
             write(0, buf, BUF_SIZE);
         close(complete_fd);
+        close(log_fd);
         exit(0);
     }
 }
