@@ -19,7 +19,9 @@ class Do :public Stmt {
 public:
     Expr *expr; Stmt *stmt;
     
-    Do() { expr = &Expr::Null; stmt = &Stmt::Null; }
+    Do(string objFileName)
+    :Stmt(objFileName)
+    {expr = &Expr::Null; stmt = &Stmt::Null; }
     
     void init(Stmt *s, Expr *x);
     

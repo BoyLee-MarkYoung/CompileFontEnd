@@ -20,8 +20,8 @@ public:
     Id array;
     Expr *index;
     
-    Access(Id a, Expr *i, Type *p)
-    : Op(new Word("[]",Tag::INDEX), p), array(a), index(i)
+    Access(Id a, Expr *i, Type *p, string fn)
+    : Op(new Word("[]",Tag::INDEX), p, fn), array(a), index(i)
     {    // p is element type after
           // flattening the array
     }
@@ -30,7 +30,7 @@ public:
     :array(Id::Null), index(&Expr::Null)
     {}
     
-    Expr* gen() { return new Access(array, index->reduce(), type); }
+    Expr* gen() { return new Access(array, index->reduce(), type, objFileName); }
     
     void jumping(int t,int f) { emitjumps(reduce()->toString(),t,f); }
     

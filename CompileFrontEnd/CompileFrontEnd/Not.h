@@ -15,8 +15,8 @@
 
 class Not : public Logical {
 public:
-    Not(Token *tok, Expr *x2)
-    :Logical(tok, x2, x2)
+    Not(Token *tok, Expr *x2, string fn)
+    :Logical(tok, x2, x2, fn)
     {}
     
     void jumping(int t, int f) { expr2->jumping(f, t); }

@@ -13,22 +13,37 @@ void Node::error(string s) {
     cerr << "near line "
     <<lexline
     <<": "
-    << s;
+    << s
+    << endl;
 }
 
 int Node::newlabel() {
-     return ++labels;
+     return ++labelMultiFile[objFileName];
 }
 
 
 void Node::emitlabel(int i) {
-    cout << "L"
-    << i
-    << ":";
+    FILE *f = fopen(objFileName.c_str(), "a+");
+//    ofstream fstrm(objFileName);
+//    fstrm.open(objFileName);
+
+    
+    //输出到文件
+    fprintf(f, "L%d: ", i);
+//    cout <<  "L"
+//    << i
+//    << ":";
+
 }
 
 void Node::emit(string s) {
-    cout <<"\t" << s <<endl;
+        //输出到文件
+    FILE *f = fopen(objFileName.c_str(), "a+");
+    fstream fstrm(objFileName);
+//    fstrm <<"\t" << s <<endl;
+    fprintf(f, "\t%s\n", s.c_str());
+
+//    cout <<"\t" << s <<endl;
 }
 
 bool Node::operator==(const Node& rhs)
@@ -36,4 +51,5 @@ bool Node::operator==(const Node& rhs)
     return this->lexline == rhs.lexline;
 }
 
-int Node::labels = 0;
+//int Node::labels = 0;
+map<string, int> Node::labelMultiFile;

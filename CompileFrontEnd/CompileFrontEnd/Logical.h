@@ -16,42 +16,24 @@
 
 using namespace std;
 
+
+//bool 逻辑表达式类
 class Logical :public Expr {
     
 public:
+    //含两个子表达式
     Expr *expr1, *expr2;
     
-    Logical(Token *tok, Expr *x1, Expr *x2)
-    :Expr(tok, &Type::Null), expr1(x1), expr2(x2)
-    {
-        type = check(expr1->type, expr2->type);
-        if (*type == Type::Null )
-            error("type error");
-    }
-    
+    //在创建对象时检查两个子表达式的 Type类型时候都是 bool
+    Logical(Token *tok, Expr *x1, Expr *x2, string objFileName);
     Logical(){}
     
-    virtual Type* check(Type *p1, Type *p2) {
-        if ( *p1 == Type::Bool && *p2 == Type::Bool ) return &Type::Bool;
-        else return &Type::Null;
-    }
+    //检查两表达式的类型时候都是 Bool 不是则返回 Type::Null
+    virtual Type* check(Type *p1, Type *p2);
     
-    virtual Expr* gen() {
-        int f = newlabel();
-        int a = newlabel();
-        Temp *temp = new Temp(type);
-        this->jumping(0,f);
-        emit(temp->toString() + " = true");
-        char * p_temp_char = new char[string("goto L").length()+lengthOfInt];
-        sprintf(p_temp_char, "goto L%d", a);
-        emit(p_temp_char);
-        emitlabel(f); emit(temp->toString() + " = false");
-        emitlabel(a);
-        return temp;
-    }
+    //生成中间代码
+    Expr* gen();
     
-    string toString() {
-        return expr1->toString()+" "+op->toString()+" "+expr2->toString();
-    }
+    string toString();
 };
 #endif /* defined(__CompileFrontEnd__Logical__) */

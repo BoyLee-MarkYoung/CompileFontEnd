@@ -20,7 +20,9 @@ class While : public Stmt {
 public:
     Expr *expr; Stmt *stmt;
     
-    While() { expr = &Expr::Null; stmt = &Stmt::Null; }
+    While(string objFileName)
+    :Stmt(objFileName)
+    { expr = &Expr::Null; stmt = &Stmt::Null; }
     
     void init(Expr *x, Stmt *s);
     void gen(int b, int a);

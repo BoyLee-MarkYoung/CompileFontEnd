@@ -8,5 +8,13 @@
 
 #include "Temp.h"
 
+map<string, int> Temp::countMultiFile;
 
-int Temp::count = 0;
+//int Temp::count = 0;
+
+string Temp::toString()
+{
+    ostringstream str;
+    str << "t" << number;
+    return str.str();
+}

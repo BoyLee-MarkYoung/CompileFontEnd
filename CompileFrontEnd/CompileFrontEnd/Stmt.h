@@ -15,17 +15,24 @@
 
 using namespace std;
 
+
+//语句类
 class Stmt : public Node
 {
 public:
-    Stmt() { }
+    Stmt(string objFileName)
+    :Node(objFileName)
+    {}
+    
+    Stmt()
+    {}
     
     static Stmt Null;
-    
-    virtual void gen(int b, int a) {} // called with labels begin and after
-    
-    int after = 0;                   // saves label after
-    static Stmt *Enclosing;  // used for break stmts
+
+    // 调用时的参数是语句的开始处标号和语句的下一条标号
+    virtual void gen(int b, int a) {}  
+    int after = 0;                   // while & Do 用它来break
+    static Stmt *Enclosing;  // 在语法分析时被用于跟踪外层构造
 
 };
 #endif /* defined(__CompileFrontEnd__Stmt__) */

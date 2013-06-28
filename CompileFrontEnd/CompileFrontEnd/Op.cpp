@@ -12,7 +12,7 @@
 Expr* Op::reduce()
 {
     Expr *x = gen();
-    Temp *t = new Temp(type);
+    Temp *t = new Temp(type, objFileName);
     emit( t->toString() + " = " + x->toString() );
     return t;
 }

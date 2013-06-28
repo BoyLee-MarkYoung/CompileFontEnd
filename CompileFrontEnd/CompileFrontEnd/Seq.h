@@ -12,14 +12,16 @@
 #include <iostream>
 #include "Stmt.h"
 
+
+//语句序列
 class Seq : public Stmt {
     
     
 public:
     Stmt *stmt1; Stmt *stmt2;
     
-    Seq(Stmt *s1, Stmt *s2)
-    :stmt1(s1), stmt2(s2)
+    Seq(Stmt *s1, Stmt *s2, string fn)
+    :stmt1(s1), stmt2(s2), Stmt(fn)
     {}
     
     Seq()

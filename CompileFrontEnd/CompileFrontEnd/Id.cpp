@@ -38,6 +38,8 @@ Id& Id::operator=(const Id& rhs) {
     this->offset = rhs.offset;
     this->op = rhs.op;
     this->type = rhs.type;
+    this->objFileName = rhs.objFileName;
+//    this->fstrm = rhs.fstrm;
     return *this;
 }
 /*

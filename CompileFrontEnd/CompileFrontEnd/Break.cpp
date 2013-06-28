@@ -9,13 +9,16 @@
 #include "Break.h"
 
 
-void Break::gen(int b, int a) {
+void Break::gen(int b, int a)
+{
     ostringstream ss;
     ss << "goto L" << stmt->after;
     emit(ss.str());
 }
 
-Break::Break() {
+Break::Break(string objFileName)
+:Stmt(objFileName)
+{
     if( *Stmt::Enclosing == Stmt::Null ) error("unenclosed break");
     stmt = Stmt::Enclosing;
 }

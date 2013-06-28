@@ -46,7 +46,7 @@ class Parser {
 private:
     Lexer lex;    // lexical analyzer for this parser
     Token *look;   // lookahead tagen
-    
+    string objFileName;
     
     
 public:
@@ -56,11 +56,13 @@ public:
     {
         top = new Env();
         lex = l;
+        objFileName = l.getObjFileName();
+        
         move();
     }
     
     void move() { look = lex.scan(); }
-    void error(string s) { cout << "near line " << Lexer::line << ": " <<s; }
+    void error(string s) { cout << "near line " << Lexer::lineMultiFile[objFileName] << ": " <<s; }
     void match(int t);
     void program();
     Stmt* block();

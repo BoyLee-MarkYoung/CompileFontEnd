@@ -27,7 +27,10 @@ Id Env::get(Token *w) {
 }
 
 
-
+void Env::put(Token *w, Id i)
+{
+    table.insert(make_pair(w,i));
+}
 
 //Env Env::Null;
 

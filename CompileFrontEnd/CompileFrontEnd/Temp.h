@@ -14,23 +14,23 @@
 #include <sstream>
 
 using namespace std;
+
+//临时变量类
 class Temp :public Expr{
 public:
-    static int count;
+    
+    //记录各自输出文件的变量数
+    static map<string, int> countMultiFile;
+    
+    //当前对象的下标
     int number;
     
-    Temp(Type *p)
-    : Expr(&Word::temp, p), number(++count)
-    {
-    }
+    Temp(Type *p, string objFileName)
+    : Expr(&Word::temp, p, objFileName), number(++countMultiFile[objFileName])
+    {}
     
 
-    string toString()
-    {
-        ostringstream str;
-        str << "t" << number;
-        return str.str();
-    }
+    string toString();
     
 };
 #endif /* defined(__CompileFrontEnd__Temp__) */

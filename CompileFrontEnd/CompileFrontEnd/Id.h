@@ -16,13 +16,18 @@
 
 using namespace std;
 
+
+//标示符类
 class Id :public Expr
 {
 public:
+    
+    //标示符在符号表中的偏移量
     int offset;     // relative address
     
-    Id(Word *idd, Type *p, int b)
-    :Expr(idd, p), offset(b)
+    
+    Id(Word *idd, Type *p, int b, string objFileName)
+    :Expr(idd, p, objFileName), offset(b)
     {}
     
     Id(){offset = 0;}
@@ -32,8 +37,6 @@ public:
     bool operator==(const Id& rhs);
     bool operator!=(const Id& rhs);
     Id& operator=(const Id& rhs);
-    
-//    string toString();
 
 
 };

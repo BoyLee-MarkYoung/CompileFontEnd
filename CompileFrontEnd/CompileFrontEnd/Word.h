@@ -12,7 +12,7 @@
 #include <iostream>
 #include "Token.h"
 #include "Tag.h"
-#include "MyString.h"
+
 
 
 using namespace std;

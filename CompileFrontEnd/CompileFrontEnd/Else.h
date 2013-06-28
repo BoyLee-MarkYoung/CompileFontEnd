@@ -20,7 +20,7 @@ class Else :public Stmt{
 public:
     Expr *expr; Stmt *stmt1, *stmt2;
     
-    Else(Expr *x, Stmt *s1, Stmt *s2);
+    Else(Expr *x, Stmt *s1, Stmt *s2, string objFileName);
     
     void gen(int b, int a);
 };

@@ -25,7 +25,7 @@ void Parser::match(int t) {
 
 void Parser::program()
 {
-    Stmt* s = block();
+    Stmt* s = block(); 
     int begin = s->newlabel();
     int after = s->newlabel();
     s->emitlabel(begin);
@@ -53,7 +53,7 @@ void Parser::decls()
         match(Tag::ID);
         match(';');
         if (wd) {
-            Id id = Id(wd, p, used);
+            Id id = Id(wd, p, used, objFileName);
             top->put( wd, id );
         }
         used = used + p->width;
@@ -102,7 +102,7 @@ Stmt* Parser::stmts()
     if ( look->tag == '}' )
         return & Stmt::Null;
     else
-        return new Seq(stmt(), stmts());
+        return new Seq(stmt(), stmts(), objFileName);
 }
 
 Stmt* Parser::stmt()
@@ -124,14 +124,14 @@ Stmt* Parser::stmt()
             match(')');
             s1 = stmt();
             if( look->tag != Tag::ELSE )
-                return new If(x, s1);
+                return new If(x, s1, objFileName);
             match(Tag::ELSE);
             s2 = stmt();
-            return new Else(x, s1, s2);
+            return new Else(x, s1, s2, objFileName);
             
         case Tag::WHILE:
         {
-            While *whilenode = new While();
+            While *whilenode = new While(objFileName);
             savedStmt = Stmt::Enclosing; Stmt::Enclosing = whilenode;
             match(Tag::WHILE); match('('); x = booll(); match(')');
             s1 = stmt();
@@ -142,7 +142,7 @@ Stmt* Parser::stmt()
             
         case Tag::DO:
         {
-            Do *donode = new Do();
+            Do *donode = new Do(objFileName);
             savedStmt = Stmt::Enclosing; Stmt::Enclosing = donode;
             match(Tag::DO);
             s1 = stmt();
@@ -155,7 +155,7 @@ Stmt* Parser::stmt()
         case Tag::BREAK:
         {
             match(Tag::BREAK); match(';');
-            return new Break();
+            return new Break(objFileName);
         }
             
         case '{':
@@ -172,7 +172,7 @@ Stmt* Parser::assign()
     //    Word *wd = dynamic_cast<Word*>(look);
     //    if (wd)
     id = top->get(look);
-    match(Tag::ID);
+
     
     //    else {
     //        cerr << "sytax err4";
@@ -180,14 +180,14 @@ Stmt* Parser::assign()
     //    }
     if( id == Id::Null )
         error(look->toString() + " undeclared");
-    
+    match(Tag::ID);
     if( look->tag == '=' ) {       // S -> id = E ;
         move();
-        stmt = new Set(id, booll());
+        stmt = new Set(id, booll(), objFileName);
     }
     else {                        // S -> L = E ;
         Access *x = offset(id);
-        match('=');  stmt = new SetElem(x, booll());
+        match('=');  stmt = new SetElem(x, booll(), objFileName);
     }
     match(';');
     return stmt;
@@ -199,7 +199,7 @@ Expr* Parser::booll()
     while( look->tag == Tag::OR ) {
         Token *tok = look;
         move();
-        x = new Or(tok, x, join());
+        x = new Or(tok, x, join(), objFileName);
     }
     return x;
 }
@@ -209,7 +209,7 @@ Expr* Parser::join(){
     while( look->tag == Tag::AND ) {
         Token *tok = look;
         move();
-        x = new And(tok, x, equality());
+        x = new And(tok, x, equality(), objFileName);
     }
     return x;
 }
@@ -220,7 +220,7 @@ Expr* Parser::equality()
     while( look->tag == Tag::EQ || look->tag == Tag::NE ) {
         Token *tok = look;
         move();
-        x = new Rel(tok, x, rel());
+        x = new Rel(tok, x, rel(), objFileName);
     }
     return x;
 }
@@ -232,7 +232,7 @@ Expr* Parser::rel() {
         {
             Token *tok = look;
             move();
-            return new Rel(tok, x, expr());
+            return new Rel(tok, x, expr(),objFileName);
         }
         default:
             return x;
@@ -244,7 +244,7 @@ Expr* Parser::expr() {
     while( look->tag == '+' || look->tag == '-' ) {
         Token *tok = look;
         move();
-        x = new Arith(tok, x, term());
+        x = new Arith(tok, x, term(), objFileName);
     }
     return x;
 }
@@ -254,7 +254,7 @@ Expr* Parser::term(){
     while(look->tag == '*' || look->tag == '/' ) {
         Token *tok = look;
         move();
-        x = new Arith(tok, x, unary());
+        x = new Arith(tok, x, unary(),objFileName);
     }
     return x;
 }
@@ -262,12 +262,12 @@ Expr* Parser::term(){
 Expr* Parser::unary() {
     if( look->tag == '-' ) {
         move();
-        return new Unary(&Word::minus, unary());
+        return new Unary(&Word::minus, unary(), objFileName);
     }
     else if( look->tag == '!' ) {
         Token *tok = look;
         move();
-        return new Not(tok, unary());
+        return new Not(tok, unary(), objFileName);
     }
     else
         return factor();
@@ -282,19 +282,19 @@ Expr* Parser::factor() {
             match(')');
             return x;
         case Tag::NUM:
-            x = new Constant(look,& Type::Int);
+            x = new Constant(look,& Type::Int, objFileName);
             move();
             return x;
         case Tag::REAL:
-            x = new Constant(look, &Type::Float);
+            x = new Constant(look, &Type::Float, objFileName);
             move();
             return x;
         case Tag::TRUEE:
-            x = &Constant::True;
+            x = new Constant(&Word::True, &Type::Bool, objFileName);
             move();
             return x;
         case Tag::FALSEE:
-            x = &Constant::False;
+            x = new Constant(&Word::False, &Type::Bool, objFileName);
             move();
             return x;
         case Tag::ID:
@@ -327,8 +327,8 @@ Access* Parser::offset(Id a)
     if (temptype) {
         Type* type = temptype->of;
         
-        w = new Constant(type->width);
-        t1 = new Arith(new Token('*'), i, w);
+        w = new Constant(type->width, objFileName);
+        t1 = new Arith(new Token('*'), i, w, objFileName);
         loc = t1;
         while( look->tag == '[' ) {      // multi-dimensional I -> [ E ] I
             match('[');
@@ -336,13 +336,13 @@ Access* Parser::offset(Id a)
             match(']');
             type = dynamic_cast<Array*>(type)->of;
             Type* type = new Type(*temptype->of);
-            w = new Constant(type->width);
-            t1 = new Arith( new Token('*'), i, w);
-            t2 = new Arith( new Token('+'), loc, t1);
+            w = new Constant(type->width, objFileName);
+            t1 = new Arith( new Token('*'), i, w, objFileName);
+            t2 = new Arith( new Token('+'), loc, t1, objFileName);
             loc = t2;
         }
         
-        return new Access(a, loc, type);
+        return new Access(a, loc, type, objFileName);
     } else {
         return NULL;
     }

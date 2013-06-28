@@ -13,13 +13,15 @@
 #include "Stmt.h"
 #include "Id.h"
 
+
+//赋值
 class Set :public Stmt{
 public:
     Id id;
     Expr *expr;
     
-    Set(Id i, Expr *x)
-    :id(i), expr(x)
+    Set(Id i, Expr *x, string fn)
+    :id(i), expr(x), Stmt(fn)
     {
         if ( *(check(id.type, expr->type)) == Type::Null )
             error("type error");

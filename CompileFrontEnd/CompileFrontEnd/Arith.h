@@ -18,8 +18,8 @@ class Arith :public Op {
 public:
     Expr *expr1, *expr2;
     
-    Arith(Token *tok, Expr *x1, Expr *x2)
-    : Op(tok, &Type::Null), expr1(x1), expr2(x2)
+    Arith(Token *tok, Expr *x1, Expr *x2, string fn)
+    : Op(tok, &Type::Null, fn), expr1(x1), expr2(x2)
     {
         type = Type::max(expr1->type, expr2->type);
         if (*type == Type::Null )
@@ -27,7 +27,7 @@ public:
     }
     
     Expr* gen() {
-        return new Arith(op, expr1->reduce(), expr2->reduce());
+        return new Arith(op, expr1->reduce(), expr2->reduce(), this->objFileName);
     }
     
     string toString() {

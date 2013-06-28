@@ -9,13 +9,15 @@
 #include "Lexer.h"
 #include "Tag.h"
 
-int Lexer::line = 1;
+//int Lexer::line = 1;
+
+map<string, int> Lexer::lineMultiFile;
 
 Lexer& Lexer::operator=(const Lexer& rhs) {
     this->fp = rhs.fp;
     this->peek = rhs.peek;
-    this->line = rhs.line;
     this->words = rhs.words;
+    this->objFileName = rhs.objFileName;
     return *this;
 }
 
@@ -54,6 +56,8 @@ Lexer::Lexer (const char *filename)
     reserve(& Type::Int  );  reserve( & Type::Char  );
     reserve(& Type::Bool );  reserve( & Type::Float );
     peek = ' ';
+    setObjFileName();
+    Lexer::lineMultiFile.insert(make_pair(objFileName, 1));
 }
 
 
@@ -66,11 +70,23 @@ bool Lexer::readch(char c) {
     
 }
 
+void Lexer::readch() {
+    if (fp != NULL) {
+        peek = fgetc(fp);
+//        cout << peek;
+    }
+    else
+        peek = EOF;
+    //        peek = getchar();
+    //        cout << endl << peek << ' ';
+}
+
 
 Token* Lexer::scan() {
     for( ; ; readch() ) {
         if( peek == ' ' || peek == '\t' ) continue;
-        else if( peek == '\n' ) line = line + 1;
+        else if( peek == '\n' )
+            Lexer::lineMultiFile[objFileName] = Lexer::lineMultiFile[objFileName]+1;
         else break;
     }
     switch( peek ) {
@@ -122,3 +138,35 @@ Token* Lexer::scan() {
     peek = ' ';
     return tok;
 }
+
+
+string Lexer::getObjFileName() {
+    return objFileName;
+}
+
+void Lexer::setObjFileName() {
+
+    bool containtDot = false;
+    int i=0;
+    char *objFn = new char[strlen(fn)];
+    strcpy(objFn, fn);
+    for (; objFn[i] != 0;i++)
+    {
+        if (objFn[i] == '.')
+        {
+            objFn[++i] = 'o';
+            objFn[++i] = 0;
+            containtDot = true;
+            break;
+        }
+    }
+    if (!containtDot)
+        strcat(objFn, ".o");
+    objFileName = string(objFn);
+}
+
+
+
+
+
+

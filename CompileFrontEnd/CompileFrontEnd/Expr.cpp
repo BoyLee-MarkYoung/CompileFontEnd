@@ -41,6 +41,8 @@ Expr& Expr::operator=(const Expr &rhs) {
     this->lexline = rhs.lexline;
     this->op = rhs.op;
     this->type = rhs.type;
+    this->objFileName = rhs.objFileName;
+    this->labelMultiFile = rhs.labelMultiFile;
     return *this;
 }
 

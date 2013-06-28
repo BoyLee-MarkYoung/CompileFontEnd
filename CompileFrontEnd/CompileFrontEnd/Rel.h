@@ -18,13 +18,14 @@ class Rel : public Logical {
     
     
 public:
-    Rel(Token *tok, Expr *x1, Expr *x2)
+    Rel(Token *tok, Expr *x1, Expr *x2, string fn)
 //    :Logical(tok, x1, x2)
     {
         this->op = tok;
         this->type = &Type::Null;
         this->expr1 = x1;
         this->expr2 = x2;
+        this->objFileName = fn;
         this->type = check(expr1->type, expr2->type);
         if (*type == Type::Null )
             error("type error");

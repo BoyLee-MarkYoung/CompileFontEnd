@@ -20,7 +20,7 @@ class Break :public Stmt{
 public:
     Stmt *stmt;
     
-    Break();
+    Break(string objFileName);
     
     void gen(int b, int a);
 };

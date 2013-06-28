@@ -22,7 +22,6 @@
 		BB5613F817715C6E00B49389 /* Type.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5613F617715C6D00B49389 /* Type.cpp */; };
 		BB5613FB17715CA500B49389 /* Word.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5613F917715CA500B49389 /* Word.cpp */; };
 		BB5613FE1771605200B49389 /* Tag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5613FC1771605100B49389 /* Tag.cpp */; };
-		BBC7D22D1771874C006E5611 /* MyString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBC7D22B1771874C006E5611 /* MyString.cpp */; };
 		BBC7D2301771A1E9006E5611 /* Stmt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBC7D22E1771A1E9006E5611 /* Stmt.cpp */; };
 		BBC7D2331771D21B006E5611 /* Access.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBC7D2311771D21B006E5611 /* Access.cpp */; };
 		BBC7D2361771D27C006E5611 /* Op.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBC7D2341771D27B006E5611 /* Op.cpp */; };
@@ -88,8 +87,6 @@
 		BB5613FA17715CA500B49389 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
 		BB5613FC1771605100B49389 /* Tag.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tag.cpp; sourceTree = "<group>"; };
 		BB5613FD1771605200B49389 /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
-		BBC7D22B1771874C006E5611 /* MyString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MyString.cpp; sourceTree = "<group>"; };
-		BBC7D22C1771874C006E5611 /* MyString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyString.h; sourceTree = "<group>"; };
 		BBC7D22E1771A1E9006E5611 /* Stmt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Stmt.cpp; sourceTree = "<group>"; };
 		BBC7D22F1771A1E9006E5611 /* Stmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stmt.h; sourceTree = "<group>"; };
 		BBC7D2311771D21B006E5611 /* Access.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Access.cpp; sourceTree = "<group>"; };
@@ -170,8 +167,6 @@
 				BBC7D25617734366006E5611 /* symbols */,
 				BBC7D255177342B5006E5611 /* lexer */,
 				BB5613D71770DB7C00B49389 /* CompileFrontEnd.1 */,
-				BBC7D22B1771874C006E5611 /* MyString.cpp */,
-				BBC7D22C1771874C006E5611 /* MyString.h */,
 			);
 			path = CompileFrontEnd;
 			sourceTree = "<group>";
@@ -341,7 +336,6 @@
 				BB5613F817715C6E00B49389 /* Type.cpp in Sources */,
 				BB5613FB17715CA500B49389 /* Word.cpp in Sources */,
 				BB5613FE1771605200B49389 /* Tag.cpp in Sources */,
-				BBC7D22D1771874C006E5611 /* MyString.cpp in Sources */,
 				BBC7D2301771A1E9006E5611 /* Stmt.cpp in Sources */,
 				BBC7D2331771D21B006E5611 /* Access.cpp in Sources */,
 				BBC7D2361771D27C006E5611 /* Op.cpp in Sources */,

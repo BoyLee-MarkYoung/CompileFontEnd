@@ -17,14 +17,16 @@
 
 using namespace std;
 
+//提供一个 reduce 的一个实现。这个类的字累包括：表示算数运算符的子类　Arith,表示单目运算符的子类 Unary和表示数组访问的子类 Access。
 class Op : public Expr {
 public:
-    Op(Token *tok, Type *p)
-    :Expr(tok, p)
+    Op(Token *tok, Type *p, string objFileName)
+    :Expr(tok, p, objFileName)
     {}
     
     Op(){}
     
+//reduce先调用gen生成临时变量，以便后面使用
     Expr *reduce();
 };
 #endif /* defined(__CompileFrontEnd__Op__) */

@@ -21,28 +21,19 @@ class Constant :public Expr {
     
     
 public:
+    Constant(Token *tok, Type *p, string fn)
+    :Expr(tok, p, fn)
+    {}
+    
     Constant(Token *tok, Type *p)
     :Expr(tok, p)
     {}
     
-    Constant(int i)
-    :Expr(new Num(i), &Type::Int)
+    Constant(int i, string objFileName)
+    :Expr(new Num(i), &Type::Int, objFileName)
     {}
     
-    static Constant
-    True, False;
-    
-    void jumping(int t, int f) {
-        ostringstream str;
-        str << "goto L" << t;
-        if ( *this == Constant::True && t != 0 ) emit(str.str());
-        else if ( *this == Constant::False && f != 0)
-        {
-            str = ostringstream();
-            str << "goto L" << f;
-            emit(str.str());
-        }
-    }
+    void jumping(int t, int f);
     
     bool operator==(const Constant &rhs);
 

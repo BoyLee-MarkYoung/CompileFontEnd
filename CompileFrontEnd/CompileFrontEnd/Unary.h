@@ -12,21 +12,21 @@
 #include <iostream>
 #include "Op.h"
 #include "Type.h"
+
+
 class Unary :public Op {
-    
-    
 public:
     Expr *expr;
     
-    Unary(Token *tok, Expr *x)     // handles minus, for ! see Not
-    :Op(tok, &Type::Null),expr(x)
+    Unary(Token *tok, Expr *x, string fn)     // handles minus, for ! see Not
+    :Op(tok, &Type::Null, fn),expr(x)
     {
         type = Type::max(&Type::Int, expr->type);
         if (*type == Type::Null )
             error("type error");
     }
     
-    Expr* gen() { return new Unary(op, expr->reduce()); }
+    Expr* gen() { return new Unary(op, expr->reduce(), objFileName); }
     
     string toString() { return op->toString()+" "+expr->toString(); }
 };

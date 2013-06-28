@@ -23,8 +23,8 @@ public:
     Expr *index;
     Expr *expr;
     
-    SetElem(Access *x, Expr *y)
-    :array(x->array), index(x->index), expr(y)
+    SetElem(Access *x, Expr *y, string fn)
+    :array(x->array), index(x->index), expr(y), Stmt(fn)
     {
         if ( *(check(x->type, expr->type)) == Type::Null )
             error("type error");
