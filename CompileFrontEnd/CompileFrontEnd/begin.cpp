@@ -121,13 +121,14 @@ void handler(int num) {
     close(compiling_fd);
     complete_fd = open(COMPLETE_FILE_NAME, O_RDONLY);
     
-    puts("\33[2J");
+//    puts("\33[2J");
     int status;
     int pid = waitpid(-1, &status, WNOHANG);
     if (WIFEXITED(status)) {
         sprintf(buf, "The child %d exit with code %d\n", pid, WEXITSTATUS(status));
         write(log_fd, buf, strlen(buf));
         
+        system("clear");
         while (read(complete_fd, buf, BUF_SIZE) > 0)
             write(0, buf, BUF_SIZE);
         close(complete_fd);
