@@ -70,7 +70,6 @@ int main(int argc, const char * argv[]) {
         //子进程
         for (i = 1; i < argc; ++i)
         {
-            sleep(1); // 可以看效果
             err = pthread_create(&tid[i], NULL, compile, (void *)argv[i]);
             if (err != 0)
             {
@@ -95,6 +94,7 @@ int main(int argc, const char * argv[]) {
 
 void handler(int num) {
     // 接受到SIGCHLD的信号
+    system("clear");
     int status;
     int pid = waitpid(-1, &status, WNOHANG);
     if (WIFEXITED(status)) {
