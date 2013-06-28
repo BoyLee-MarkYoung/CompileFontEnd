@@ -55,8 +55,8 @@ int main(int argc, const char * argv[]) {
                     write(0, buf, 2);
                     usleep(USLEEP_TIME);
                 }
-                sleep(1);
                 printf("\n\n\n");
+                sleep(3);
             }
             else
             {
@@ -86,7 +86,7 @@ int main(int argc, const char * argv[]) {
                 printf("can not join with thread: %s\n", strerror(err));
                 exit(-1);
             }
-            printf("thread exit code %ld\n", (long)tret);
+//            printf("thread exit code %ld\n", (long)tret);
         }
         sleep(2);
         exit(0);
@@ -98,7 +98,7 @@ void handler(int num) {
     int status;
     int pid = waitpid(-1, &status, WNOHANG);
     if (WIFEXITED(status)) {
-        printf("The child %d exit with code %d\n", pid, WEXITSTATUS(status));
+//        printf("The child %d exit with code %d\n", pid, WEXITSTATUS(status));
         exit(0);
     }
 }
