@@ -62,7 +62,7 @@ public:
     }
     
     void move() { look = lex.scan(); }
-    void error(string s) { cout << "near line " << Lexer::lineMultiFile[objFileName] << ": " <<s; }
+    void error(string s);
     void match(int t);
     void program();
     Stmt* block();

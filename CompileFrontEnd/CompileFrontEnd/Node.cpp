@@ -10,11 +10,14 @@
 
 
 void Node::error(string s) {
-    cerr << "near line "
-    <<lexline
-    <<": "
-    << s
-    << endl;
+    FILE *f = fopen("log.txt", "a+");
+    //    ofstream fstrm(objFileName);
+    //    fstrm.open(objFileName);
+    
+    
+    //输出到文件
+    fprintf(f, "near line %d: %s\n", lexline, s.c_str());
+
 }
 
 int Node::newlabel() {

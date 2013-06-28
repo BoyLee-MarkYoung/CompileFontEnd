@@ -348,3 +348,15 @@ Access* Parser::offset(Id a)
     }
 }
 
+void Parser::error(string s) {
+    FILE *f = fopen("log.txt", "a+");
+    //    ofstream fstrm(objFileName);
+    //    fstrm.open(objFileName);
+    
+    
+    //输出到文件
+    fprintf(f, "near line %d: %s\n", Lexer::lineMultiFile[objFileName], s.c_str());
+    //
+    //        cout << "near line " << Lexer::lineMultiFile[objFileName] << ": " <<s;
+}
+

@@ -60,11 +60,11 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "block1.t"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "expr1.t"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "expr2.t"
@@ -76,7 +76,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "identity.t"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "identity2.t"
@@ -84,7 +84,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "jump1.t"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "jump2.t"
@@ -96,7 +96,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "prog0.t"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "prog1.t"
@@ -120,7 +120,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "typeError.t"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "undeclaredError.t"
