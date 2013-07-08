@@ -73,7 +73,7 @@ bool Lexer::readch(char c) {
 void Lexer::readch() {
     if (fp != NULL) {
         peek = fgetc(fp);
-//        cout << peek;
+        cout << peek;
     }
     else
         peek = EOF;

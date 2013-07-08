@@ -120,6 +120,10 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "typeError.t"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "large.t"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
